@@ -1,0 +1,56 @@
+﻿@using System.Threading
+@using Syncfusion.Blazor.Grids
+@using Microsoft.Extensions.Logging
+@implements IDisposable
+@inject ILogger<Component> Logger;
+<h1>grid component.</h1>
+<SfGrid DataSource="DataSource" AllowPaging="true">
+    <GridPageSettings PageSize="3" />
+    <GridColumns>
+        <GridColumn Field="@nameof(DataValue.FirstColumn)" />
+        <GridColumn Field="@nameof(DataValue.SecondColumn)" />
+        <GridColumn Field="@nameof(DataValue.ThirdColumn)" />
+    </GridColumns>
+</SfGrid>
+@functions {
+    CancellationTokenSource TokenSource = new CancellationTokenSource();
+    List<DataValue>? DataSource = null;
+    protected override async Task OnParametersSetAsync()
+    {
+        var Token = TokenSource.Token;
+        await base.OnParametersSetAsync();
+        try
+        {
+            await Task.Delay(TimeSpan.FromSeconds(10), Token);
+            DataSource = Enumerable.Range(0, 2000).Select(index => (index % 3) switch
+            {
+                0 => new DataValue { FirstColumn = $"{index:d}", },
+                1 => new DataValue { SecondColumn = $"{index:d}", },
+                _ => new DataValue { ThirdColumn = $"{index:d}", },
+            }).ToList();
+        }
+        catch (Exception e)
+        {
+            Logger.LogWarning(e, nameof(OnParametersSetAsync) + ": error :{e}", e);
+        }
+    }
+    class DataValue
+    {
+        public string FirstColumn { get; set; } = string.Empty;
+        public string SecondColumn { get; set; } = string.Empty;
+        public string ThirdColumn { get; set; } = string.Empty;
+    }
+    public void Dispose()
+    {
+        if (!TokenSource.IsCancellationRequested)
+            try
+            {
+                TokenSource.Cancel();
+            }
+            catch (Exception e)
+            {
+                Logger.LogWarning(e, nameof(Dispose) + ": error:{e}", e);
+            }
+        TokenSource.Dispose();
+    }
+}

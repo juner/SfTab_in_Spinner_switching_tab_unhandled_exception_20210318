@@ -1,0 +1,62 @@
+﻿@page "/"
+@using Syncfusion.Blazor
+@using Syncfusion.Blazor.Navigations
+<div class="row" style="height:100px">
+
+</div>
+<SfTab>
+    <TabAnimationSettings>
+        <TabAnimationPrevious Effect="AnimationEffect.None"></TabAnimationPrevious>
+        <TabAnimationNext Effect="AnimationEffect.None"></TabAnimationNext>
+    </TabAnimationSettings>
+    <TabItems>
+        <TabItem>
+            <ChildContent>
+                <TabHeader Text="normal1" />
+            </ChildContent>
+            <ContentTemplate>
+                <h1>Hello, world!</h1>
+            </ContentTemplate>
+        </TabItem>
+        <TabItem>
+            <ChildContent>
+                <TabHeader Text="normal2" />
+            </ChildContent>
+            <ContentTemplate>
+                <h1>Hello, world!</h1>
+            </ContentTemplate>
+        </TabItem>
+        <TabItem>
+            <ChildContent>
+                <TabHeader Text="spinner1" />
+            </ChildContent>
+            <ContentTemplate>
+                <Component />
+            </ContentTemplate>
+        </TabItem>
+        <TabItem>
+            <ChildContent>
+                <TabHeader Text="spinner2" />
+            </ChildContent>
+            <ContentTemplate>
+                <Component />
+            </ContentTemplate>
+        </TabItem>
+        <TabItem>
+            <ChildContent>
+                <TabHeader Text="grid1" />
+            </ChildContent>
+            <ContentTemplate>
+                <GridComponent />
+            </ContentTemplate>
+        </TabItem>
+        <TabItem>
+            <ChildContent>
+                <TabHeader Text="grid2" />
+            </ChildContent>
+            <ContentTemplate>
+                <GridComponent />
+            </ContentTemplate>
+        </TabItem>
+    </TabItems>
+</SfTab>

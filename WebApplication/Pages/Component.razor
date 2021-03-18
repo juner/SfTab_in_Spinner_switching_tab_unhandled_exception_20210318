@@ -1,0 +1,40 @@
+﻿@using System.Threading
+@using Syncfusion.Blazor.Spinner
+@using Microsoft.Extensions.Logging
+@implements IDisposable
+@inject ILogger<Component> Logger;
+<SfSpinner @ref="Spinner" Type="SpinnerType.Bootstrap" CssClass="e-spin-overlay" ZIndex="4000" />
+
+<h1>world!</h1>
+@functions {
+    CancellationTokenSource TokenSource = new CancellationTokenSource();
+    SfSpinner Spinner = default!;
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        var Token = TokenSource.Token;
+        await base.OnAfterRenderAsync(firstRender);
+        try
+        {
+            await Spinner.ShowAsync();
+            await Task.Delay(TimeSpan.FromSeconds(10), Token);
+            await Spinner.HideAsync();
+        }
+        catch (Exception e)
+        {
+            Logger.LogWarning(e, nameof(OnAfterRenderAsync) +  ": error:{e}", e);
+        }
+    }
+    public void Dispose()
+    {
+        if (!TokenSource.IsCancellationRequested)
+            try
+            {
+                TokenSource.Cancel();
+            }
+            catch (Exception e)
+            {
+                Logger.LogWarning(e, nameof(Dispose) + ": error:{e}", e);
+            }
+        TokenSource.Dispose();
+    }
+}
