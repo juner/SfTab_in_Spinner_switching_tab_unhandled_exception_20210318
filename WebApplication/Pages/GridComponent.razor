@@ -2,7 +2,7 @@
 @using Syncfusion.Blazor.Grids
 @using Microsoft.Extensions.Logging
 @implements IDisposable
-@inject ILogger<Component> Logger;
+@inject ILogger<Component> Logger
 <h1>grid component.</h1>
 <SfGrid @ref="SfGrid" DataSource="DataSource" AllowPaging="true">
     <GridPageSettings PageSize="3" />
@@ -18,6 +18,7 @@
     SfGrid<DataValue> SfGrid = default!;
     protected override async Task OnParametersSetAsync()
     {
+        Logger.LogDebug("OnParametersSetAsync");
         var Token = TokenSource.Token;
         await base.OnParametersSetAsync();
         try
@@ -43,6 +44,7 @@
     }
     public void Dispose()
     {
+        Logger.LogDebug("Dispose");
         if (!TokenSource.IsCancellationRequested)
             try
             {

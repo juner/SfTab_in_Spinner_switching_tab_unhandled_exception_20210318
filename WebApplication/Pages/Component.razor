@@ -2,7 +2,7 @@
 @using Syncfusion.Blazor.Spinner
 @using Microsoft.Extensions.Logging
 @implements IDisposable
-@inject ILogger<Component> Logger;
+@inject ILogger<Component> Logger
 <SfSpinner @ref="Spinner" Type="SpinnerType.Bootstrap" CssClass="e-spin-overlay" ZIndex="4000" />
 
 <h1>world!</h1>
@@ -11,6 +11,7 @@
     SfSpinner Spinner = default!;
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
+        Logger.LogDebug("OnAfterRenderAsync");
         var Token = TokenSource.Token;
         await base.OnAfterRenderAsync(firstRender);
         if (!firstRender)
@@ -28,6 +29,7 @@
     }
     public void Dispose()
     {
+        Logger.LogDebug("Dispose");
         if (!TokenSource.IsCancellationRequested)
             try
             {
