@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<TargetFramework>netcoreapp3.1</TargetFramework>
-		<LangVersion>LatestMajor</LangVersion>
+		<LangVersion>default</LangVersion>
 	</PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="Syncfusion.Blazor" Version="18.4.0.48" />

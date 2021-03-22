@@ -14,8 +14,6 @@
         Logger.LogDebug("OnAfterRenderAsync");
         var Token = TokenSource.Token;
         await base.OnAfterRenderAsync(firstRender);
-        if (!firstRender)
-            return;
         try
         {
             await Spinner.ShowAsync();

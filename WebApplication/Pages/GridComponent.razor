@@ -13,9 +13,9 @@
     </GridColumns>
 </SfGrid>
 @functions {
-    CancellationTokenSource TokenSource = new CancellationTokenSource();
+    CancellationTokenSource TokenSource = new();
     List<DataValue>? DataSource = null;
-    SfGrid<DataValue> SfGrid = default!;
+    SfGrid<DataValue> SfGrid = new();
     protected override async Task OnParametersSetAsync()
     {
         Logger.LogDebug("OnParametersSetAsync");
@@ -26,7 +26,10 @@
             await Task.Delay(TimeSpan.FromSeconds(10), Token);
             DataSource = Enumerable.Range(0, 2000).Select(index => (index % 3) switch
             {
-                0 => new DataValue { FirstColumn = $"{index:d}", },
+                0 => new DataValue
+                {
+                    FirstColumn = $"{index:d}",
+                },
                 1 => new DataValue { SecondColumn = $"{index:d}", },
                 _ => new DataValue { ThirdColumn = $"{index:d}", },
             }).ToList();
@@ -54,7 +57,7 @@
             {
                 Logger.LogWarning(e, nameof(Dispose) + ": error:{e}", e);
             }
-        SfGrid?.Dispose();
+        SfGrid.Dispose();
         TokenSource.Dispose();
     }
 }
