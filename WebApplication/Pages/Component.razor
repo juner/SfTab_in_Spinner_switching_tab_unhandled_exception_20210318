@@ -13,6 +13,8 @@
     {
         var Token = TokenSource.Token;
         await base.OnAfterRenderAsync(firstRender);
+        if (!firstRender)
+            return;
         try
         {
             await Spinner.ShowAsync();
@@ -21,7 +23,7 @@
         }
         catch (Exception e)
         {
-            Logger.LogWarning(e, nameof(OnAfterRenderAsync) +  ": error:{e}", e);
+            Logger.LogWarning(e, nameof(OnAfterRenderAsync) + ": error:{e}", e);
         }
     }
     public void Dispose()
