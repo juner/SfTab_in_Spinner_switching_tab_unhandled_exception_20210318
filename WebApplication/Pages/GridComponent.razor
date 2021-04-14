@@ -4,7 +4,7 @@
 @implements IDisposable
 @inject ILogger<Component> Logger
 <h1>grid component.</h1>
-<SfGrid @ref="SfGrid" DataSource="DataSource" AllowPaging="true">
+<SfGrid DataSource="DataSource" AllowPaging="true">
     <GridPageSettings PageSize="3" />
     <GridColumns>
         <GridColumn Field="@nameof(DataValue.FirstColumn)" />
@@ -15,7 +15,6 @@
 @functions {
     CancellationTokenSource TokenSource = new();
     List<DataValue>? DataSource = null;
-    SfGrid<DataValue> SfGrid = new();
     protected override async Task OnParametersSetAsync()
     {
         Logger.LogDebug("OnParametersSetAsync");
@@ -57,7 +56,6 @@
             {
                 Logger.LogWarning(e, nameof(Dispose) + ": error:{e}", e);
             }
-        SfGrid.Dispose();
         TokenSource.Dispose();
     }
 }

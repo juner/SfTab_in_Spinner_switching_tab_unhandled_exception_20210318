@@ -37,7 +37,6 @@
             {
                 Logger.LogWarning(e, nameof(Dispose) + ": error:{e}", e);
             }
-        Spinner?.Dispose();
         TokenSource.Dispose();
     }
 }
